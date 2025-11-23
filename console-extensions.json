@@ -3,18 +3,86 @@
     "type": "console.page/route",
     "properties": {
       "exact": true,
-      "path": "/example",
-      "component": { "$codeRef": "ExamplePage" }
+      "path": "/k8s/ns/:ns/rcs.dana.io~v1alpha1~Capp/~new/form",
+      "component": { "$codeRef": "CreateCappForm" }
     }
   },
   {
-    "type": "console.navigation/href",
+    "type": "console.navigation/section",
     "properties": {
-      "id": "example",
-      "name": "%plugin__console-plugin-template~Plugin Example%",
-      "href": "/example",
+      "id": "dana-automations",
+      "name": "Dana Automations",
+      "insertBefore": "storage",
+      "perspective": "admin"
+    }
+  },
+  {
+    "type": "console.model-definition",
+    "properties": {
+      "models": [
+        {
+          "id": "capp",
+          "kind": "Capp",
+          "plural": "capps",
+          "abbr": "CAPP",
+          "apiGroup": "rcs.dana.io",
+          "apiVersion": "v1alpha1",
+          "namespaced": true,
+          "label": "Capp",
+          "labelPlural": "Capp",
+          "crd": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "console.navigation/resource-ns",
+    "properties": {
       "perspective": "admin",
-      "section": "home"
+      "section": "dana-automations",
+      "id": "capps",
+      "name": "Capps",
+      "model": {
+        "group": "rcs.dana.io",
+        "version": "v1alpha1",
+        "kind": "Capp"
+      }
+    }
+  },
+  {
+    "type": "console.page/resource/list",
+    "properties": {
+      "model": {
+        "group": "rcs.dana.io",
+        "version": "v1alpha1",
+        "kind": "Capp"
+      },
+      "component": {
+        "$codeRef": "CappPage"
+      }
+    }
+  },
+  {
+    "type": "console.page/resource/create",
+    "properties": {
+      "model": {
+        "group": "rcs.dana.io",
+        "version": "v1alpha1",
+        "kind": "Capp"
+      },
+      "component": {
+        "$codeRef": "CreateCappForm"
+      }
+    }
+  },
+  {
+    "type": "console.page/route",
+    "properties": {
+      "exact": false,
+      "path": ["/k8s/ns/:ns/capp", "/k8s/all-namespaces/capps"],
+      "component": {
+        "$codeRef": "CappPage"
+      }
     }
   }
 ]
