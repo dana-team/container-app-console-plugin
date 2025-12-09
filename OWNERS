@@ -1,9 +1,5 @@
+# See the OWNERS docs at https://go.k8s.io/owners
+
 approvers:
-  - christianvogt
-  - florkbr
-  - spadgett
-  - vojtechszocs
-  - jhadvig
-  - TheRealJon
-  - rhamilto
-component: Management Console
+  - mzeevi
+  - dvirgilad
