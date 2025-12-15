@@ -24,7 +24,7 @@
     "webpack": "node -r ts-node/register ./node_modules/.bin/webpack"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^5.15.5",
+    "@cypress/webpack-preprocessor": "^7.0.2",
     "@openshift-console/dynamic-plugin-sdk": "4.20.0",
     "@openshift-console/dynamic-plugin-sdk-webpack": "1.1.1",
     "@patternfly/react-core": "^6.4.0",
