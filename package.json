@@ -65,7 +65,7 @@
     "typescript": "^5.9.3",
     "webpack": "5.103.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^4.7.4"
+    "webpack-dev-server": "^5.2.2"
   },
   "consolePlugin": {
     "name": "container-app-plugin",
