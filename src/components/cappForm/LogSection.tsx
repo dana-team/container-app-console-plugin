@@ -32,9 +32,10 @@ const LogSection: React.FC<LogSectionProps> = ({ state, dispatch }) => {
 
   return (
     <Accordion>
-      <AccordionItem isExpanded={isExpanded} style={{ backgroundColor: 'transparent' }}>
+      <AccordionItem>
         <AccordionToggle
           id="capp-log-toggle"
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
           style={{ padding: 0 }}
         >
@@ -44,7 +45,7 @@ const LogSection: React.FC<LogSectionProps> = ({ state, dispatch }) => {
           </div>
         </AccordionToggle>
 
-        <AccordionContent id="capp-log-content" className="pf-v5-u-ml-0">
+        <AccordionContent id="capp-log-content" isHidden={!isExpanded} className="pf-v5-u-ml-0">
           <Stack hasGutter>
             <StackItem>
               <CappFormSelect

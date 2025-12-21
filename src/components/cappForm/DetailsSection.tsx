@@ -34,16 +34,17 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ state, dispatch }) => {
 
   return (
     <Accordion>
-      <AccordionItem isExpanded={isExpanded} style={{ backgroundColor: 'transparent' }}>
+      <AccordionItem>
         <AccordionToggle
           id="capp-details-toggle"
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
           style={{ padding: 0 }}
         >
           <Title headingLevel="h2">Capp details</Title>
         </AccordionToggle>
 
-        <AccordionContent id="capp-details-content" className="pf-v5-u-ml-0">
+        <AccordionContent id="capp-details-content" isHidden={!isExpanded} className="pf-v5-u-ml-0">
           <Stack hasGutter>
             <StackItem>
               <CappFormSelect

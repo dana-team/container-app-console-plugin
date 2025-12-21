@@ -24,16 +24,17 @@ const ConfigurationSection: React.FC<ConfigurationSectionProps> = ({ state, disp
 
   return (
     <Accordion>
-      <AccordionItem isExpanded={isExpanded} style={{ backgroundColor: 'transparent' }}>
+      <AccordionItem>
         <AccordionToggle
           id="capp-configuration-toggle"
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
           style={{ padding: 0 }}
         >
           <Title headingLevel="h2">Configuration Spec</Title>
         </AccordionToggle>
 
-        <AccordionContent id="capp-configuration-content" className="pf-v5-u-ml-0">
+        <AccordionContent id="capp-configuration-content" isHidden={!isExpanded} className="pf-v5-u-ml-0">
           <Stack hasGutter>
             <StackItem>
               <CappFormTextInput

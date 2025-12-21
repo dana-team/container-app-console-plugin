@@ -35,9 +35,10 @@ const RouteSection: React.FC<RouteSectionProps> = ({ state, dispatch }) => {
 
   return (
     <Accordion>
-      <AccordionItem isExpanded={isExpanded} style={{ backgroundColor: 'transparent' }}>
+      <AccordionItem>
         <AccordionToggle
           id="route-spec-toggle"
+          isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
           style={{ padding: 0 }}
         >
@@ -47,7 +48,7 @@ const RouteSection: React.FC<RouteSectionProps> = ({ state, dispatch }) => {
           </div>
         </AccordionToggle>
 
-        <AccordionContent id="route-spec-content" className="pf-v5-u-ml-0">
+        <AccordionContent id="route-spec-content" isHidden={!isExpanded} className="pf-v5-u-ml-0">
           <Stack hasGutter>
             <StackItem>
               <CappFormTextInput
