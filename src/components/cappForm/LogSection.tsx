@@ -31,7 +31,7 @@ const LogSection: React.FC<LogSectionProps> = ({ state, dispatch }) => {
   };
 
   return (
-    <Accordion>
+    <Accordion style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}>
       <AccordionItem>
         <AccordionToggle
           id="capp-log-toggle"
