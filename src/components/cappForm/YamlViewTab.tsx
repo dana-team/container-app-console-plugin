@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { NavigateFunction } from 'react-router-dom-v5-compat';
 import { Capp } from '../../types/capp';
 import { CodeEditor, Language } from '@patternfly/react-code-editor';
+import '../../monaco-init';
 
 interface YamlViewTabProps {
   namespace: string;
@@ -62,6 +63,18 @@ spec:
     }
   };
 
+  const onEditorDidMount = (editor, monaco) => {
+    const model = editor.getModel();
+    if (!model) return;
+    const disposable = monaco.editor.onDidChangeMarkers(() => {
+      const markers = monaco.editor.getModelMarkers({
+        resource: model.uri,
+      });
+      console.log('Yaml markers:', markers);
+    });
+    return disposable.dispose();
+  };
+
   return (
     <div
       style={{
@@ -71,15 +84,16 @@ spec:
       }}
     >
       <PageSection isFilled hasOverflowScroll>
-        <div style={{ height: '55vh' }}>
+        <div style={{ height: '100%' }}>
           <CodeEditor
             isDarkTheme
             isLineNumbersVisible
             isMinimapVisible
             code={yamlValue}
             onChange={(v) => setYamlValue(v || '')}
+            onEditorDidMount={onEditorDidMount}
             language={Language.yaml}
-            height="100%"
+            height="60vh"
           />
 
           {yamlError && (
