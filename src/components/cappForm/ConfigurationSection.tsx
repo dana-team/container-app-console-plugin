@@ -23,7 +23,7 @@ const ConfigurationSection: React.FC<ConfigurationSectionProps> = ({ state, disp
   const [isExpanded, setIsExpanded] = useState(true);
 
   return (
-    <Accordion>
+    <Accordion style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}>
       <AccordionItem>
         <AccordionToggle
           id="capp-configuration-toggle"

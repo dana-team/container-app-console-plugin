@@ -3,7 +3,9 @@
 import * as path from 'path';
 import { Configuration as WebpackConfiguration } from 'webpack';
 import { Configuration as WebpackDevServerConfiguration } from 'webpack-dev-server';
+import * as MonacoEditorPlugin from 'monaco-editor-webpack-plugin';
 import { ConsoleRemotePlugin } from '@openshift-console/dynamic-plugin-sdk-webpack';
+import { languages } from 'monaco-editor/esm/metadata';
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
@@ -74,6 +76,9 @@ const config: Configuration = {
     },
   },
   plugins: [
+    new MonacoEditorPlugin({
+      languages: ['yaml'],
+    }),
     new ConsoleRemotePlugin(),
     new CopyWebpackPlugin({
       patterns: [{ from: path.resolve(__dirname, 'locales'), to: 'locales' }],
