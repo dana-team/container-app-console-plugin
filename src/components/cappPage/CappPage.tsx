@@ -21,7 +21,7 @@ const CappPage: React.FC = () => {
 
   return (
     <>
-      <PageSection>
+      <PageSection style={{ backgroundColor: 'inherit' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Title headingLevel="h1"> Capps </Title>
           <Link to={createPath}>
@@ -29,7 +29,7 @@ const CappPage: React.FC = () => {
           </Link>
         </div>
       </PageSection>
-      <PageSection>
+      <PageSection style={{ backgroundColor: 'inherit' }}>
         <CappTable />
       </PageSection>
     </>

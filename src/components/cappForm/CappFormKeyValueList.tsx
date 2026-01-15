@@ -51,7 +51,7 @@ function CappFormKeyValueList<T>({
       </div>
 
       {items.map((item, index) => (
-        <InputGroup key={index} className="pf-v5-u-mt-sm">
+        <InputGroup key={index} style={{ gap: 4 }} className="pf-v5-u-mt-sm">
           <TextInput
             placeholder={keyPlaceholder}
             value={getKey(item)}

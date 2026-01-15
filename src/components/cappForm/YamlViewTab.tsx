@@ -1,19 +1,19 @@
-import { k8sCreate, K8sResourceKind } from '@openshift-console/dynamic-plugin-sdk';
+import { CodeEditor, k8sCreate, K8sResourceKind } from '@openshift-console/dynamic-plugin-sdk';
 import * as jsYaml from 'js-yaml';
-import { ActionGroup, Alert, AlertVariant, Button, PageSection } from '@patternfly/react-core';
 import * as React from 'react';
-import { useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { NavigateFunction } from 'react-router-dom-v5-compat';
 import { Capp } from '../../types/capp';
-import { CodeEditor, Language } from '@patternfly/react-code-editor';
-import '../../monaco-init';
+import { State } from 'src/types/state';
+import { ActionGroup, Alert, AlertVariant, Button, PageSection } from '@patternfly/react-core';
 
 interface YamlViewTabProps {
+  state: State;
   namespace: string;
   navigate: NavigateFunction;
 }
 
-const YamlViewTab: React.FC<YamlViewTabProps> = ({ namespace, navigate }) => {
+const YamlViewTab: React.FC<YamlViewTabProps> = ({ state, namespace, navigate }) => {
   const DEFAULT_YAML_VALUE = `apiVersion: rcs.dana.io/v1alpha1
 kind: Capp
 metadata:
@@ -39,6 +39,15 @@ spec:
   const [yamlValue, setYamlValue] = useState<string>(DEFAULT_YAML_VALUE);
   const [yamlError, setYamlError] = useState<string>('');
 
+  useEffect(() => {
+    setYamlValue(
+      jsYaml.dump(state.payload, {
+        noRefs: true,
+        lineWidth: -1,
+      }),
+    );
+  }, [state.payload]);
+
   const saveYaml = async () => {
     setYamlError('');
 
@@ -63,49 +72,40 @@ spec:
     }
   };
 
-  const onEditorDidMount = (editor, monaco) => {
-    const model = editor.getModel();
-    if (!model) return;
-    const disposable = monaco.editor.onDidChangeMarkers(() => {
-      const markers = monaco.editor.getModelMarkers({
-        resource: model.uri,
-      });
-      console.log('Yaml markers:', markers);
-    });
-    return disposable.dispose();
-  };
-
   return (
     <div
       style={{
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-between',
+        height: '100%',
       }}
     >
-      <PageSection isFilled hasOverflowScroll>
-        <div style={{ height: '100%' }}>
+      <PageSection
+        style={{ backgroundColor: 'inherit', flex: 10, display: 'flex', flexDirection: 'column' }}
+        isFilled
+      >
+        <Suspense fallback={<div>Loading editor…</div>}>
           <CodeEditor
-            isDarkTheme
-            isLineNumbersVisible
-            isMinimapVisible
-            code={yamlValue}
+            value={yamlValue}
+            language="yaml"
+            minHeight="100%"
             onChange={(v) => setYamlValue(v || '')}
-            onEditorDidMount={onEditorDidMount}
-            language={Language.yaml}
-            height="60vh"
+            onSave={saveYaml}
+            showMiniMap
+            showShortcuts
           />
-
-          {yamlError && (
-            <Alert variant={AlertVariant.danger} isInline title="YAML Error">
-              {yamlError}
-            </Alert>
-          )}
-        </div>
+        </Suspense>
       </PageSection>
 
-      <PageSection>
-        <ActionGroup>
+      <PageSection
+        style={{
+          backgroundColor: 'inherit',
+          display: 'flex',
+          flexDirection: 'column-reverse',
+          flex: 1,
+        }}
+      >
+        <ActionGroup style={{ marginTop: 15 }}>
           <Button variant="primary" onClick={saveYaml} style={{ marginRight: 15 }}>
             Create
           </Button>
@@ -113,6 +113,12 @@ spec:
             Cancel
           </Button>
         </ActionGroup>
+
+        {yamlError && (
+          <Alert variant={AlertVariant.danger} isInline title="YAML Error">
+            {yamlError}
+          </Alert>
+        )}
       </PageSection>
     </div>
   );
