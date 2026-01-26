@@ -68,7 +68,7 @@ const FormViewTab: React.FC<FormViewTabProps> = ({ state, dispatch, namespace, n
 
   useEffect(() => {
     validateForm();
-  }, [state.nameError, state.configuration.containerImageError]);
+  }, [state.name, state.nameError, state.configuration.containerImageError]);
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
@@ -82,10 +82,11 @@ const FormViewTab: React.FC<FormViewTabProps> = ({ state, dispatch, namespace, n
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
+        height: '100%',
       }}
     >
-      <PageSection hasOverflowScroll isFilled>
-        <Form id="create-capp-form" onSubmit={onSubmit} style={{ height: '55vh' }}>
+      <PageSection style={{ backgroundColor: 'inherit' }} hasOverflowScroll isFilled>
+        <Form id="create-capp-form" onSubmit={onSubmit} style={{ height: '45vh' }}>
           <CappFormTextInput
             isRequired
             id="capp-name"
@@ -112,22 +113,18 @@ const FormViewTab: React.FC<FormViewTabProps> = ({ state, dispatch, namespace, n
           <RouteSection state={state} dispatch={dispatch} />
 
           <Divider />
-
-          {state.error && (
-            <Alert variant={AlertVariant.danger} isInline title="Error">
-              {state.error}
-            </Alert>
-          )}
         </Form>
       </PageSection>
 
-      <PageSection>
-        <ActionGroup>
+      <PageSection
+        style={{ backgroundColor: 'inherit', display: 'flex', flexDirection: 'column-reverse' }}
+      >
+        <ActionGroup style={{ marginTop: 15 }}>
           <Button
             type="submit"
             variant="primary"
             form="create-capp-form"
-            isDisabled={state.progress}
+            isDisabled={state.progress || !!state.error}
             style={{ marginRight: 15 }}
           >
             {state.progress && <Spinner size="md" />} Create
@@ -136,6 +133,12 @@ const FormViewTab: React.FC<FormViewTabProps> = ({ state, dispatch, namespace, n
             Cancel
           </Button>
         </ActionGroup>
+
+        {state.error && (
+          <Alert variant={AlertVariant.danger} isInline title="Error">
+            {state.error}
+          </Alert>
+        )}
       </PageSection>
     </div>
   );

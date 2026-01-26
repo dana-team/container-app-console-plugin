@@ -8,6 +8,9 @@ export const useCreateCappState = (namespace: string) => {
   const { apiGroup, apiVersion, kind } = Capp;
 
   useEffect(() => {
+    const isLogSpecEmpty =
+      !state.log.host && !state.log.index && !state.log.user && !state.log.passwordSecret;
+
     const obj = {
       apiVersion: `${apiGroup}/${apiVersion}`,
       kind,
@@ -40,13 +43,15 @@ export const useCreateCappState = (namespace: string) => {
           routeTimeoutSeconds: state.route.routeTimeoutSeconds,
         },
 
-        logSpec: {
-          type: state.log.type,
-          host: state.log.host,
-          index: state.log.index,
-          user: state.log.user,
-          passwordSecret: state.log.passwordSecret,
-        },
+        logSpec: isLogSpecEmpty
+          ? {}
+          : {
+              type: state.log.type,
+              host: state.log.host,
+              index: state.log.index,
+              user: state.log.user,
+              passwordSecret: state.log.passwordSecret,
+            },
 
         volumesSpec: {
           nfsVolumes: state.volumes.map((v) => ({

@@ -31,13 +31,15 @@ const LogSection: React.FC<LogSectionProps> = ({ state, dispatch }) => {
   };
 
   return (
-    <Accordion style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}>
+    <Accordion
+      style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}
+    >
       <AccordionItem>
         <AccordionToggle
           id="capp-log-toggle"
           isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
-          style={{ padding: 0 }}
+          style={!isExpanded ? { padding: 0 } : {}}
         >
           <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-end' }}>
             <Title headingLevel="h2">Log Spec</Title> &nbsp;

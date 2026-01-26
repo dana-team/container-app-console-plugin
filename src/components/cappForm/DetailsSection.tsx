@@ -33,13 +33,15 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ state, dispatch }) => {
   };
 
   return (
-    <Accordion style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}>
+    <Accordion
+      style={{ '--pf-c-accordion--BackgroundColor': 'transparent' } as React.CSSProperties}
+    >
       <AccordionItem>
         <AccordionToggle
           id="capp-details-toggle"
           isExpanded={isExpanded}
           onClick={() => setIsExpanded((prev) => !prev)}
-          style={{ padding: 0 }}
+          style={!isExpanded ? { padding: 0 } : {}}
         >
           <Title headingLevel="h2">Capp details</Title>
         </AccordionToggle>

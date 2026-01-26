@@ -16,11 +16,11 @@ export const CreateCappForm: React.FC = () => {
 
   return (
     <>
-      <PageSection>
+      <PageSection style={{ backgroundColor: 'inherit' }}>
         <Title headingLevel="h1">Create Capp</Title>
       </PageSection>
 
-      <PageSection>
+      <PageSection style={{ backgroundColor: 'inherit' }}>
         <Tabs activeKey={activeTab} onSelect={(_, key) => setActiveTab(key as string)}>
           <Tab eventKey="form" title="Form View" />
           <Tab eventKey="yaml" title="YAML View" />
@@ -30,7 +30,7 @@ export const CreateCappForm: React.FC = () => {
       {activeTab === 'form' ? (
         <FormViewTab state={state} dispatch={dispatch} namespace={namespace} navigate={navigate} />
       ) : (
-        <YamlViewTab navigate={navigate} namespace={namespace} />
+        <YamlViewTab state={state} navigate={navigate} namespace={namespace} />
       )}
     </>
   );
