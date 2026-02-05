@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react';
 import { useActiveNamespace, useK8sWatchResource } from '@openshift-console/dynamic-plugin-sdk';
 import { K8sResourceCommon } from 'src/types/k8sResourceCommon';
 import { ALL_NAMESPACES, CappGroupVersionKind } from '../consts';
-import { columnMappings, compareValues, getValue } from '../utils/sort';
+import { cappTableColumnMappings, compareValues, getCappTableValues } from '../utils/sort';
 import { useDebounce } from './useDebounce';
 
 export const useCappTableDataGenerator = (columns: string[]) => {
@@ -36,11 +36,11 @@ export const useCappTableDataGenerator = (columns: string[]) => {
   }, [capps, debouncedSearch]);
 
   const sortedData = useMemo(() => {
-    const colKey = columns[sortBy.index] as keyof typeof columnMappings;
+    const colKey = columns[sortBy.index] as keyof typeof cappTableColumnMappings;
 
     return [...filteredData].sort((a, b) => {
-      const aValue = getValue(a, colKey);
-      const bValue = getValue(b, colKey);
+      const aValue = getCappTableValues(a, colKey);
+      const bValue = getCappTableValues(b, colKey);
       return compareValues(aValue, bValue, sortBy.direction);
     });
   }, [filteredData, columns, sortBy]);
