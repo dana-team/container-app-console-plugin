@@ -73,8 +73,9 @@
     "displayName": "Capp Plugin",
     "description": "Manage Capp resources from the OpenShift Console.",
     "exposedModules": {
-      "CappPage": "./components/cappPage/CappPage",
-      "CreateCappForm": "./components/cappForm/CreateCappForm"
+      "CappListPage": "./components/cappListPage/CappListPage",
+      "CreateCappForm": "./components/cappForm/CreateCappForm",
+      "CappConditionsSection": "./components/cappInfoPage/CappConditionsSection"
     },
     "dependencies": {
       "@console/pluginAPI": "*"

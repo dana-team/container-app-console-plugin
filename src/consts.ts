@@ -3,6 +3,7 @@ import { Capp } from './types/capp';
 export const ALL_NAMESPACES = '#ALL_NS#';
 export const DEFAULT_NAMESPACE = 'default';
 export const CAPP_TABLE_COLUMNS = ['Name', 'Namespace', 'State', 'Scale Metric', 'Created'];
+export const CONDITION_TABLE_COLUMNS = ['Source', 'Type', 'Status', 'Updated', 'Reason', 'Message'];
 export const DROPDOWN_CAPACITY_UNITS = { Mi: 'MiB', Gi: 'GiB', Ti: 'TiB' } as const;
 export const SCALE_METRIC_OPTIONS = ['concurrency', 'cpu', 'memory', 'rps'] as const;
 export const CAPP_STATE_OPTIONS = ['enabled', 'disabled'] as const;

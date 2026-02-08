@@ -58,7 +58,7 @@
         "kind": "Capp"
       },
       "component": {
-        "$codeRef": "CappPage"
+        "$codeRef": "CappListPage"
       }
     }
   },
@@ -81,8 +81,23 @@
       "exact": false,
       "path": ["/k8s/ns/:ns/capp", "/k8s/all-namespaces/capps"],
       "component": {
-        "$codeRef": "CappPage"
+        "$codeRef": "CappListPage"
       }
+    }
+  },
+  {
+    "type": "console.resource/details-item",
+    "properties": {
+      "model": {
+        "group": "rcs.dana.io",
+        "version": "v1alpha1",
+        "kind": "Capp"
+      },
+      "id": "capp-conditions",
+      "title": "Conditions",
+      "column": "left",
+      "component": { "$codeRef": "CappConditionsSection" },
+      "sortWeight": 1
     }
   }
 ]

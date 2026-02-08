@@ -15,7 +15,7 @@ const createCappInNamespacePath = (namespace: string): string => {
   return `/k8s/ns/${isAllProjects ? DEFAULT_NAMESPACE : namespace}/${reference}/~new/form`;
 };
 
-const CappPage: React.FC = () => {
+const CappListPage: React.FC = () => {
   const [namespace] = useActiveNamespace();
   const createPath = useMemo(() => createCappInNamespacePath(namespace), [namespace]);
 
@@ -36,4 +36,4 @@ const CappPage: React.FC = () => {
   );
 };
 
-export default CappPage;
+export default CappListPage;
